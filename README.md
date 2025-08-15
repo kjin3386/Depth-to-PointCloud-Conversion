@@ -5,15 +5,12 @@ A ROS2 package that detects floor-level obstacles using Intel RealSense depth ca
 ## Features
 
 - **Height-based point cloud filtering** using camera extrinsic parameters
-- **Real-time obstacle detection** for low-height objects (table legs, boxes, etc.)
 - **Dual point cloud publishing** for floor and obstacle visualization
-- **Nav2 integration ready** for autonomous navigation
 - **Configurable parameters** for different camera heights and orientations
 
 ## Use Cases
 
 - Autonomous mobile robots in indoor environments
-- Shopping cart robots avoiding low obstacles
 - Service robots navigating around furniture
 - Any robot needing to detect obstacles below traditional 2D LiDAR height
 
