@@ -1,2 +1,81 @@
-# Depth-to-PointCloud-Conversion
-this python script converse RealSense's Depth data to Point Cloud data.  
+# Floor-Based Obstacle Detection for ROS2 Navigation
+
+A ROS2 package that detects floor-level obstacles using Intel RealSense depth cameras for autonomous robot navigation. This package separates floor points from obstacle points based on camera height and publishes filtered point clouds for Nav2 integration.
+
+## Features
+
+- **Height-based point cloud filtering** using camera extrinsic parameters
+- **Real-time obstacle detection** for low-height objects (table legs, boxes, etc.)
+- **Dual point cloud publishing** for floor and obstacle visualization
+- **Nav2 integration ready** for autonomous navigation
+- **Configurable parameters** for different camera heights and orientations
+
+## Use Cases
+
+- Autonomous mobile robots in indoor environments
+- Shopping cart robots avoiding low obstacles
+- Service robots navigating around furniture
+- Any robot needing to detect obstacles below traditional 2D LiDAR height
+
+## Hardware Requirements
+
+- Intel RealSense depth camera (D455, D435, etc.)
+- ROS2 Humble or later
+- Compatible with Jetson devices and Intel NUC
+
+## Key Parameters
+
+- Camera height: 50cm (configurable)
+- Detection range: 0.3m - 4.0m
+- Floor detection: 35-65cm below camera
+- Obstacle detection: 10cm above to 25cm below camera level
+
+## Topics
+
+**Published:**
+- `/obstacles/pointcloud` - Filtered obstacle points for Nav2
+- `/floor/pointcloud` - Floor points for visualization
+
+**Subscribed:**
+- `/camera/camera/depth/image_rect_raw` - RealSense depth image
+- `/camera/camera/depth/camera_info` - Camera intrinsic parameters
+
+## Quick Start
+
+```bash
+# Clone and build
+git clone [your-repo-url]
+cd your_workspace
+colcon build --packages-select floor_obstacle_detector
+
+# Run
+ros2 run floor_obstacle_detector clean_floor_obstacle_detector
+
+# Visualize in RViz2
+rviz2
+Integration with Nav2
+Add to your costmap configuration:
+yamlobstacle_layer:
+  observation_sources: scan obstacles
+  obstacles:
+    topic: /obstacles/pointcloud
+    data_type: "PointCloud2"
+    marking: True
+    clearing: True
+Configuration
+Adjust parameters in the code for your specific setup:
+
+Camera mounting height
+Detection ranges
+Sampling resolution
+
+Perfect for robots that need to detect obstacles that traditional 2D LiDAR cannot see!
+
+### Tags for GitHub:
+ros2, navigation, obstacle-detection, realsense, depth-camera, autonomous-robot, nav2, point-cloud, robotics, jetson
+
+### Repository Name Suggestions:
+- `ros2-floor-obstacle-detection`
+- `realsense-floor-navigator`
+- `depth-obstacle-detector-ros2`
+- `floor-based-navigation-ros2`
